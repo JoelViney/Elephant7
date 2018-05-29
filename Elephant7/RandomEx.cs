@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Elephant7.Factories;
+using Elephant7.Models;
+using System;
 using System.Collections.Generic;
 
 namespace Elephant7
@@ -18,14 +20,21 @@ namespace Elephant7
     /// <summary>Provides an interface to access all of the Random functionality.</summary>
     public partial class RandomEx
     {
-
         private Random _random;
+        private Lazy<AddressFactory> _addressFactory;
+        private Lazy<BusinessFactory> _businessFactory;
+        private Lazy<PersonFactory> _personFactory;
+        private Lazy<TextFactory> _textFactory;
 
         #region Constructors...
 
         public RandomEx()
         {
             this._random = new Random();
+            this._addressFactory = new Lazy<AddressFactory>(() => new AddressFactory(this));
+            this._businessFactory = new Lazy<BusinessFactory>(() => new BusinessFactory(this));
+            this._personFactory = new Lazy<PersonFactory>(() => new PersonFactory(this));
+            this._textFactory = new Lazy<TextFactory>(() => new TextFactory(this));
 
         }
 
@@ -43,6 +52,17 @@ namespace Elephant7
 
         #endregion
 
+        #region Address
+
+        public Address Address()
+        {
+            var item = this._addressFactory.Value.GetAddress();
+
+            return item;
+        }
+
+        #endregion
+
 
         #region Boolean
 
@@ -53,6 +73,43 @@ namespace Elephant7
 
         #endregion
 
+
+        #region Business
+
+        public BusinessFactory Business
+        {
+            get
+            {
+                var item = this._businessFactory.Value;
+
+                return item;
+            }
+        }
+
+        #endregion
+
+
+        #region Currency
+
+        public decimal Currency()
+        {
+            decimal dec = Decimal(1000000); // Make it a reasonable number, say 1 mil
+            return Math.Round(dec, 2);
+        }
+
+        public decimal Currency(decimal max)
+        {
+            decimal dec = Decimal(0, max);
+            return Math.Round(dec, 2);
+        }
+
+        public decimal Currency(decimal min, decimal max)
+        {
+            decimal dec = Decimal(min, max);
+            return Math.Round(dec, 2);
+        }
+
+        #endregion
 
         #region DateTime
 
@@ -74,6 +131,55 @@ namespace Elephant7
 
         #endregion
 
+
+        #region Decimal
+
+        /// <summary>
+        /// Returns an Int32 with a random value across the entire range of
+        /// possible values.
+        /// </summary>
+        private int NextInt32()
+        {
+            unchecked
+            {
+                int firstBits = _random.Next(0, 1 << 4) << 28;
+                int lastBits = _random.Next(0, 1 << 28);
+                return firstBits | lastBits;
+            }
+        }
+
+        public decimal Decimal()
+        {
+            return Decimal(decimal.MinValue, decimal.MaxValue);
+        }
+
+        public decimal Decimal(decimal max)
+        {
+            return Decimal(decimal.Zero, max);
+        }
+
+        public decimal Decimal(decimal min, decimal max)
+        {
+            byte fromScale = new System.Data.SqlTypes.SqlDecimal(min).Scale;
+            byte toScale = new System.Data.SqlTypes.SqlDecimal(max).Scale;
+
+            byte scale = (byte)(fromScale + toScale);
+            if (scale > 28)
+            {
+                scale = 28;
+            }
+
+            decimal r = new decimal(_random.Next(), _random.Next(), _random.Next(), false, scale);
+            if (Math.Sign(min) == Math.Sign(max) || min == 0 || max == 0)
+            {
+                return decimal.Remainder(r, max - min) + min;
+            }
+
+            bool getFromNegativeRange = (double)min + _random.NextDouble() * ((double)max - (double)min) < 0;
+            return getFromNegativeRange ? decimal.Remainder(r, -min) + min : decimal.Remainder(r, max);
+        }
+
+        #endregion
 
         #region Enum
 
@@ -157,6 +263,29 @@ namespace Elephant7
         #endregion
 
 
+        #region Percentage
+
+        /// <summary>Returns a random whole number from 1 to 100.</summary>
+        public int Percentage()
+        {
+            return Number(1, 100);
+        }
+
+        #endregion
+
+
+        #region Person
+
+        public Person Person()
+        {
+            var item = this._personFactory.Value.GetPerson();
+
+            return item;
+        }
+
+        #endregion
+
+
         #region T
 
         public T Either<T>(params T[] args)
@@ -166,6 +295,21 @@ namespace Elephant7
             T value = args[index];
 
             return value;
+        }
+
+        #endregion
+
+
+        #region Text
+
+        public TextFactory Text
+        {
+            get
+            {
+                var item = this._textFactory.Value;
+
+                return item;
+            }
         }
 
         #endregion

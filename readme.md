@@ -8,3 +8,8 @@ This package provides a quick and easy way to generate data for integration test
 	* .NET Core 2.0
 	* MSTest
 	* Moq
+
+
+## Why Elephant7
+
+... TODO
