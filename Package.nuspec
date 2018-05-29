@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ElephantSeven</id>
+    <version>1.0.0</version>
+    <authors>Joel Viney</authors>
+    <owners>Joel Viney</owners>
+    <!-- <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl> -->
+    <projectUrl>https://github.com/JoelViney/ElephantSeven</projectUrl>
+    <iconUrl>https://github.com/JoelViney/ElephantSeven/elephant.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This is a data generator for use in development / perforamance tests.</description>
+    <releaseNotes>Initial Version.</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <!-- <tags>Tag1 Tag2</tags> -->
+    <!--
+    <dependencies>
+      <dependency id="SampleDependency" version="1.0" />
+    </dependencies> 
+    -->
+  </metadata>
+  <files>
+    <file src="ElephantSeven\bin\Debug\netcoreapp2.0\ElephantSeven.dll" target="lib\netcoreapp2.0\" />
+  </files>
+</package>
