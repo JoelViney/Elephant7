@@ -4,4 +4,12 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Data\AddressLocality.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data\AddressLocality.txt" />
+  </ItemGroup>
+
 </Project>

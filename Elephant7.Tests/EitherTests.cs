@@ -1,14 +1,16 @@
-using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Elephant7
 {
     [TestClass]
-    public class BooleanTests
+    public class EitherTests
     {
         [TestMethod]
-        public void BooleanTest()
+        public void EitherTest()
         {
             // Arrange
             var mock = new Mock<Random>();
@@ -16,14 +18,14 @@ namespace Elephant7
             var random = new RandomEx(mock.Object);
 
             // Act
-            var result = random.Boolean();
+            var value = random.Either(7, 11);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.AreEqual(11, value);
         }
 
         [TestMethod]
-        public void BooleanAlternateTest()
+        public void EitherAlternateTest()
         {
             // Arrange
             var mock = new Mock<Random>();
@@ -31,10 +33,10 @@ namespace Elephant7
             var random = new RandomEx(mock.Object);
 
             // Act
-            var result = random.Boolean();
+            var value = random.Either(7, 11);
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.AreEqual(7, value);
         }
     }
 }

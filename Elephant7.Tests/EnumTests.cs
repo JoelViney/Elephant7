@@ -23,5 +23,20 @@ namespace Elephant7
             // Assert
             Assert.AreEqual(DayOfWeek.Tuesday, value);
         }
+
+        [TestMethod]
+        public void EnumAlternateTest()
+        {
+            // Arrange
+            var mock = new Mock<Random>();
+            mock.Setup(x => x.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(1);
+            var random = new RandomEx(mock.Object);
+
+            // Act
+            var value = random.Enum<DayOfWeek>();
+
+            // Assert
+            Assert.AreEqual(DayOfWeek.Monday, value);
+        }
     }
 }

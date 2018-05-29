@@ -26,6 +26,22 @@ namespace Elephant7
         }
 
         [TestMethod]
+        public void ListAlternateTest()
+        {
+            // Arrange
+            var mock = new Mock<Random>();
+            mock.Setup(x => x.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(2);
+            var random = new RandomEx(mock.Object);
+
+            // Act
+            var list = new string[] { "John", "Jack", "Billy", "Kevin" };
+            var item = random.ListItem<string>(list);
+
+            // Assert
+            Assert.AreEqual("Billy", item);
+        }
+
+        [TestMethod]
         public void EmptyListTest()
         {
             // Arrange

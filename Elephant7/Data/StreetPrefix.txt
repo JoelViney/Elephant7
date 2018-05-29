@@ -1,0 +1,9 @@
+East
+West
+North
+South
+New
+Old
+Middle
+Lower
+Upper
