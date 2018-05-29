@@ -1,5 +1,6 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace Elephant7
 {
@@ -7,13 +8,15 @@ namespace Elephant7
     public class BooleanTests
     {
         [TestMethod]
-        public void RandomBoolean()
+        public void BooleanTest()
         {
             // Arrange
-            RandomEx.Random = new Random(0);
+            var mock = new Mock<Random>();
+            mock.Setup(x => x.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(1);
+            var random = new RandomEx(mock.Object);
 
             // Act
-            var result = RandomEx.Boolean();
+            var result = random.Boolean();
 
             // Assert
             Assert.IsTrue(result);
