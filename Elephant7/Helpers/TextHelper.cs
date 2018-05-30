@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Elephant7
+namespace Elephant7.Helpers
 {
     /// <summary>
     /// Provides common text manipulation functinality.

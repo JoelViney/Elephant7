@@ -15,10 +15,9 @@ namespace Elephant7
             // Arrange
             var mock = new Mock<Random>();
             mock.Setup(x => x.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(2);
-            var random = new RandomEx(mock.Object);
 
             // Act
-            var value = random.Enum<DayOfWeek>();
+            var value = RandomExtensions.NextEnum<DayOfWeek>(mock.Object);
 
             // Assert
             Assert.AreEqual(DayOfWeek.Tuesday, value);
@@ -30,10 +29,9 @@ namespace Elephant7
             // Arrange
             var mock = new Mock<Random>();
             mock.Setup(x => x.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(1);
-            var random = new RandomEx(mock.Object);
 
             // Act
-            var value = random.Enum<DayOfWeek>();
+            var value = RandomExtensions.NextEnum<DayOfWeek>(mock.Object);
 
             // Assert
             Assert.AreEqual(DayOfWeek.Monday, value);

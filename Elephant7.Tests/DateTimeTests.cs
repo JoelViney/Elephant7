@@ -15,10 +15,9 @@ namespace Elephant7
             // Arrange
             var mock = new Mock<Random>();
             mock.Setup(x => x.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(123456789);
-            var random = new RandomEx(mock.Object);
 
             // Act
-            var value = random.DateTime();
+            var value = RandomExtensions.NextDateTime(mock.Object);
 
             // Assert
             Assert.AreEqual(new DateTime(235, 09, 25, 21, 9, 0), value);
@@ -30,10 +29,9 @@ namespace Elephant7
             // Arrange
             var mock = new Mock<Random>();
             mock.Setup(x => x.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(8008);
-            var random = new RandomEx(mock.Object);
 
             // Act 
-            var value = random.DateTime(new DateTime(2000, 01, 01), new DateTime(2001, 01, 01));
+            var value = RandomExtensions.NextDateTime(mock.Object, new DateTime(2000, 01, 01), new DateTime(2001, 01, 01));
 
             // Assert
             Assert.AreEqual(new DateTime(2000, 01, 06, 13, 28, 0), value);

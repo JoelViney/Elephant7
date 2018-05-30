@@ -15,11 +15,10 @@ namespace Elephant7
             // Arrange
             var mock = new Mock<Random>();
             mock.Setup(x => x.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(1);
-            var random = new RandomEx(mock.Object);
 
             // Act
             var list = new string[] { "John", "Jack", "Billy", "Kevin" };
-            var item = random.ListItem<string>(list);
+            var item = RandomExtensions.NextListItem<string>(mock.Object, list);
 
             // Assert
             Assert.AreEqual("Jack", item);
@@ -31,11 +30,10 @@ namespace Elephant7
             // Arrange
             var mock = new Mock<Random>();
             mock.Setup(x => x.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(2);
-            var random = new RandomEx(mock.Object);
 
             // Act
             var list = new string[] { "John", "Jack", "Billy", "Kevin" };
-            var item = random.ListItem<string>(list);
+            var item = RandomExtensions.NextListItem<string>(mock.Object, list);
 
             // Assert
             Assert.AreEqual("Billy", item);
@@ -45,11 +43,11 @@ namespace Elephant7
         public void EmptyListTest()
         {
             // Arrange
-            var random = new RandomEx();
+            var mock = new Mock<Random>();
 
             // Act
             var list = new string[] {  };
-            var item = random.ListItem<string>(list);
+            var item = RandomExtensions.NextListItem<string>(mock.Object, list);
 
             // Assert
             Assert.IsNull(item);

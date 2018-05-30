@@ -7,33 +7,31 @@ using System.Text;
 namespace Elephant7
 {
     [TestClass]
-    public class EitherTests
+    public class ParameterTests
     {
         [TestMethod]
-        public void EitherTest()
+        public void ParameterTest()
         {
             // Arrange
             var mock = new Mock<Random>();
             mock.Setup(x => x.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(1);
-            var random = new RandomEx(mock.Object);
 
             // Act
-            var value = random.Either(7, 11);
+            var value = RandomExtensions.NextParameter(mock.Object, 7, 11);
 
             // Assert
             Assert.AreEqual(11, value);
         }
 
         [TestMethod]
-        public void EitherAlternateTest()
+        public void ParameterAlternateTest()
         {
             // Arrange
             var mock = new Mock<Random>();
             mock.Setup(x => x.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(0);
-            var random = new RandomEx(mock.Object);
 
             // Act
-            var value = random.Either(7, 11);
+            var value = RandomExtensions.NextParameter(mock.Object, 7, 11);
 
             // Assert
             Assert.AreEqual(7, value);

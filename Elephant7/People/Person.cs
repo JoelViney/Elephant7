@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Elephant7.Models
+namespace Elephant7.People
 {
     public enum GenderType
     {

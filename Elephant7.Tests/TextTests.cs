@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Elephant7.Texts;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -15,13 +16,12 @@ namespace Elephant7
             // Arrange
             var mock = new Mock<Random>();
             mock.Setup(x => x.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(1);
-            var random = new RandomEx(mock.Object);
 
             // Act
-            var result = random.Text.Word();
+            var result = RandomTextExtensions.NextWord(mock.Object);
 
             // Assert
-            Assert.AreEqual("Wiggle", result);
+            Assert.AreEqual("A&P", result);
         }
     }
 }

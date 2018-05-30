@@ -4,12 +4,56 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp2.0\Elephant7.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="Data\AddressLocality.txt" />
+    <None Remove="Data\FirstNameFemale.txt" />
+    <None Remove="Data\FirstNameMale.txt" />
+    <None Remove="Data\LastName.txt" />
+    <None Remove="Data\StreetName.txt" />
+    <None Remove="Data\StreetPrefix.txt" />
+    <None Remove="Data\StreetType.txt" />
+    <None Remove="Data\TitleFemale.txt" />
+    <None Remove="Data\TitleMale.txt" />
+    <None Remove="Data\Word.txt" />
+    <None Remove="Data\WordNoise.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Data\AddressLocality.txt" />
+    <EmbeddedResource Include="Data\AddressLocality.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\FirstNameFemale.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\FirstNameMale.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\LastName.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\StreetName.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\StreetPrefix.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\StreetType.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\TitleFemale.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\TitleMale.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\Word.txt" />
+    <EmbeddedResource Include="Data\WordNoise.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

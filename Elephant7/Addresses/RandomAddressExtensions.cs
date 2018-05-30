@@ -1,14 +1,11 @@
-﻿using Elephant7.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Elephant7.People;
 
-namespace Elephant7.Factories
+namespace Elephant7.Addresses
 {
-    /// <summary>
-    /// This class provides a way to generate Addresses.
-    /// </summary>
-    internal class AddressFactory
+    public static class RandomAddressExtensions
     {
         private const int StreetPrefixPercentage = 2;   // The percentage chance of the prefix being added to the file
         private const int UnitFlatPercentage = 2;       // The chance of the address being a unit
@@ -18,22 +15,19 @@ namespace Elephant7.Factories
         private const int StreetNumberMax = 1000;           // The highest number of the street
         private const int StreetNumberGenerateWeight = 8;   // The weight for generating a lower street number
 
-        private RandomEx _random;
-
-        private DataFile _streetNameFile;
-        private DataFile _streetPrefixFile;
-        private DataFile _streetTypeFile;
-        private DataFile _addressLocalityFile;
+        private static Lazy<DataFile> _streetNameFile;
+        private static Lazy<DataFile> _streetPrefixFile;
+        private static Lazy<DataFile> _streetTypeFile;
+        private static Lazy<DataFile> _addressLocalityFile;
 
         #region Constructors...
 
-        internal AddressFactory(RandomEx random)
+        static RandomAddressExtensions()
         {
-            this._random = random;
-            this._streetNameFile = new DataFile(random, "StreetName.txt", 10);
-            this._streetPrefixFile = new DataFile(random, "StreetPrefix.txt", 1);
-            this._streetTypeFile = new DataFile(random, "StreetType.txt", 2);
-            this._addressLocalityFile = new DataFile(random, "AddressLocality.txt", 1);
+            _streetNameFile = new Lazy<DataFile>(() => new DataFile("StreetName.txt", 1));
+            _streetPrefixFile = new Lazy<DataFile>(() => new DataFile("StreetPrefix.txt", 1));
+            _streetTypeFile = new Lazy<DataFile>(() => new DataFile("StreetType.txt", 1));
+            _addressLocalityFile = new Lazy<DataFile>(() => new DataFile("AddressLocality.txt", 1));
         }
 
         #endregion
@@ -41,19 +35,19 @@ namespace Elephant7.Factories
         /// <summary>
         /// Returns an AddressInstance object with a random Address.
         /// </summary>
-        public Address GetAddress()
+        public static Address NextAddress(this Random random)
         {
-            var person = this._random.Person();
+            var person = random.NextPerson();
 
             var address = new Address()
             {
                 // TOTO Add CompanyName
                 Name = person.FullName,
-                Street1 = GetStreetAddress()
+                Street1 = random.NextStreetAddress()
                 // TODO: Add Street2
             };
 
-            string line = _addressLocalityFile.GetRandomLine();
+            string line = _addressLocalityFile.Value.GetRandomLine(random);
             string[] lines = line.Split(',');
 
             // TODO: Fix this up...
@@ -69,18 +63,17 @@ namespace Elephant7.Factories
         /// [(Unit or Flat Number)/](Street Number) (Street Name) (Street Type)
         /// e.g. '229 Acton Road' or '12/181 Oxford Street'
         /// </summary>
-        private string GetStreetAddress()
+        private static string NextStreetAddress(this Random random)
         {
             string street1 = string.Format("{0}{1} {2}{3} {4}",
-                _random.Percentage() <= UnitFlatPercentage ? _random.NumberCurved(UnitFlatMaxNumber, UnitFlatGenerateWeight) + "/" : "",
-                _random.NumberCurved(StreetNumberMax, StreetNumberGenerateWeight),
-                _random.Percentage() <= StreetPrefixPercentage ? _streetPrefixFile.GetRandomLine() + " " : "",
-                _streetNameFile.GetRandomLine(),
-                _streetTypeFile.GetRandomLine()
+                random.NextPercentage() <= UnitFlatPercentage ? random.NextNumberCurved(UnitFlatMaxNumber, UnitFlatGenerateWeight) + "/" : "",
+                random.NextNumberCurved(StreetNumberMax, StreetNumberGenerateWeight),
+                random.NextPercentage() <= StreetPrefixPercentage ? _streetPrefixFile.Value.GetRandomLine(random) + " " : "",
+                _streetNameFile.Value.GetRandomLine(random),
+                _streetTypeFile.Value.GetRandomLine(random)
                 );
 
             return street1;
         }
-
     }
 }

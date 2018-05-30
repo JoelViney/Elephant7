@@ -2,61 +2,53 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using Elephant7.Helpers;
+using Elephant7.Texts;
 
-namespace Elephant7.Factories
+namespace Elephant7.Business
 {
-    public class BusinessFactory
+    public static class RandomBusinessExtensions
     {
-        private RandomEx _random;
-
-        #region Constructors...
-
-        internal BusinessFactory(RandomEx random)
+        /// <summary>Returns a random Australian Business Number (ABN).</summary>
+        public static string NextAbn(this Random random)
         {
-            this._random = random;
+            return String.Format("{0} {1} {2} {3}", random.NextNumber(99), random.NextNumber(999), random.NextNumber(999), random.NextNumber(999));
         }
 
-        #endregion
 
-
-
-        public string Abn()
-        {
-            return String.Format("{0} {1} {2} {3}", _random.Number(99), _random.Number(999), _random.Number(999), _random.Number(999));
-        }
-
-        public string BusinessName(int maxLength)
+        /// <summary>Returns a random business name.</summary>
+        public static string NextBusinessName(this Random random, int maxLength)
         {
             string output = "";
-            int wordCount = _random.NumberCurved(1, 6, 2);
+            int wordCount = random.NextNumberCurved(1, 6, 2);
 
             for (int i = 0; i <= wordCount; i++)
             {
                 string word = "";
 
-                if (i == wordCount && _random.Number(1, 4) == 1)
+                if (i == wordCount && random.Number(1, 4) == 1)
                 {
                     word = "Co";
                 }
-                else if (i == wordCount && _random.Number(1, 4) == 1)
+                else if (i == wordCount && random.Number(1, 4) == 1)
                 {
                     word = "Inc";
                 }
-                else if (i == wordCount && _random.Number(1, 4) == 1)
+                else if (i == wordCount && random.Number(1, 4) == 1)
                 {
                     word = "PTY LTD";
                 }
-                else if (i != 0 && _random.Number(1, 8) == 1)
+                else if (i != 0 && random.Number(1, 8) == 1)
                 {
-                    word = _random.Text.NoiseWord();
+                    word = random.NextNoiseWord();
                 }
-                else if (_random.Number(1, 4) == 1)
+                else if (random.Number(1, 4) == 1)
                 {   // This was a freeky bug I wrote, that creates interesting headings
-                    word = output + _random.Text.Word();
+                    word = output + random.NextWord();
                 }
                 else
                 {
-                    word = _random.Text.Word();
+                    word = random.NextWord();
                 }
 
                 if (output == "")
@@ -82,16 +74,18 @@ namespace Elephant7.Factories
             return output;
         }
 
-        public string MobileNumber()
+        /// <summary>Returns a random Australian mobile phone number.</summary>
+        public static string NextMobileNumber(this Random random)
         {
-            return String.Format("{0:0000000000}", _random.Number(0, 999999999));
+            return String.Format("{0:0000000000}", random.Number(0, 999999999));
         }
 
-        public string TaxFileNumber()
+        /// <summary>Returns a random Australian Tax File Number.</summary>
+        public static string NextTaxFileNumber(this Random random)
         {
             // TODO: Do check digit that actually works?
             // Are there demo TFNs that we should be using?
-            var str = String.Format("{0:D9}", _random.Number(0, 999999999));
+            var str = String.Format("{0:D9}", random.Number(0, 999999999));
 
             Debug.Assert(str.Length <= 9);
             return str;

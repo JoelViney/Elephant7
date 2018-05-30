@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
-namespace Elephant7.Factories
+namespace Elephant7
 {
     /// <summary>
     /// This represents the information about a TestData file that is used 
@@ -11,44 +12,53 @@ namespace Elephant7.Factories
     /// </summary>
     internal class DataFile
     {
-        private RandomEx _random;
-
         private string _fileName;
         private int _randomNumberWeight;
         private string[] _lines;
 
         #region Constructors...
 
+        internal DataFile(string fileName) : this(fileName, 1)
+        {
+
+        }
+
         /// <summary>Default Constructor</summary>
         /// <param name="fileName">The name and extension of the text file</param>
         /// <param name="randomNumberWeight">The weight value applied to the selection of a random line</param>
-        internal DataFile(RandomEx random, string fileName, int randomNumberWeight)
+        internal DataFile(string fileName, int randomNumberWeight)
         {
-            this._random = random;
             this._fileName = fileName;
             this._randomNumberWeight = randomNumberWeight;
         }
 
         #endregion
 
-        private string FilePathName
+        private void LoadFromFile()
         {
-            get
+            var assembly = Assembly.GetExecutingAssembly();
+
+            var resourceName = $"{assembly.GetName().Name}.Data.{this._fileName}";
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
             {
-                string folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Data");
-                string filePathName = Path.Combine(folderPath, _fileName);
-                return filePathName;
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    string result = reader.ReadToEnd();
+
+                    this._lines = result.Split("\r\n");
+                }
             }
+
         }
 
-        internal string GetRandomLine()
+        internal string GetRandomLine(Random random)
         {
             if (_lines == null)
             {
-                _lines = File.ReadAllLines(this.FilePathName);
+                LoadFromFile();
             }
 
-            int index = _random.NumberCurved((_lines.Length - 1), _randomNumberWeight);
+            int index = random.NextNumberCurved((_lines.Length - 1), _randomNumberWeight);
 
             string output = _lines[index];
 

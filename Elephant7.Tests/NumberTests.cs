@@ -15,10 +15,9 @@ namespace Elephant7
             // Arrange
             var mock = new Mock<Random>();
             mock.Setup(x => x.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(3);
-            var random = new RandomEx(mock.Object);
 
             // Act
-            var result = random.Number(1, 10);
+            var result = RandomExtensions.Number(mock.Object, 1, 10);
 
             // Assert
             Assert.AreEqual(3, result);
