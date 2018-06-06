@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Elephant7.People;
 
-namespace Elephant7.Addresses
+namespace Elephant7.Australia
 {
     public static class RandomAddressExtensions
     {

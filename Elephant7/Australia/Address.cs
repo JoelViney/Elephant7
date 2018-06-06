@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Elephant7.Addresses
+namespace Elephant7.Australia
 {
-
     /// <summary>
     /// Represents a street address in the following format.
     /// [(Unit or Flat Number)/](Street Number) (Street Name) (Street Type)
