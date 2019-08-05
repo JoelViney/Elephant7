@@ -1,8 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Elephant7
 {
@@ -15,9 +13,10 @@ namespace Elephant7
             // Arrange
             var mock = new Mock<Random>();
             mock.Setup(x => x.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(1);
+            var rnd = mock.Object;
 
             // Act
-            var value = RandomExtensions.NextParameter(mock.Object, 7, 11);
+            var value = rnd.NextParameter(7, 11);
 
             // Assert
             Assert.AreEqual(11, value);
@@ -29,9 +28,10 @@ namespace Elephant7
             // Arrange
             var mock = new Mock<Random>();
             mock.Setup(x => x.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(0);
+            var rnd = mock.Object;
 
             // Act
-            var value = RandomExtensions.NextParameter(mock.Object, 7, 11);
+            var value = rnd.NextParameter(7, 11);
 
             // Assert
             Assert.AreEqual(7, value);

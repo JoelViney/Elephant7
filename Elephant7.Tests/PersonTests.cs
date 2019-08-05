@@ -5,21 +5,21 @@ using System;
 namespace Elephant7
 {
     [TestClass]
-    public class NumberTests
+    public class PersonTests
     {
         [TestMethod]
-        public void NumberTest()
+        public void PersonTest()
         {
             // Arrange
             var mock = new Mock<Random>();
-            mock.Setup(x => x.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(3);
+            mock.Setup(x => x.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(123456789);
             var rnd = mock.Object;
 
             // Act
-            var result = rnd.Number(1, 10);
+            var value = rnd.NextPerson();
 
             // Assert
-            Assert.AreEqual(3, result);
+            Assert.AreEqual("Sir Ahmed Ahmed Reagan", value.FullName);
         }
     }
 }

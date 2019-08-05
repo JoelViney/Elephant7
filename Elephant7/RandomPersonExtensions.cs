@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Elephant7.Models;
+using System;
 
-namespace Elephant7.People
+namespace Elephant7
 {
     public static class RandomPersonExtensions
     {

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
-using Elephant7.Helpers;
-using Elephant7.Texts;
 
 namespace Elephant7.Australia
 {
@@ -31,6 +29,5 @@ namespace Elephant7.Australia
             Debug.Assert(str.Length <= 9);
             return str;
         }
-
     }
 }

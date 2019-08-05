@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Elephant7.People;
+﻿using Elephant7.Models;
+using System;
 
 namespace Elephant7.Australia
 {

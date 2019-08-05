@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Elephant7.Australia
+﻿namespace Elephant7.Models
 {
     /// <summary>
     /// Represents a street address in the following format.

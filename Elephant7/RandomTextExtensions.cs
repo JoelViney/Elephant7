@@ -1,10 +1,8 @@
 ﻿using Elephant7.Helpers;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
-namespace Elephant7.Texts
+namespace Elephant7
 {
     /// <summary>
     /// Provides access to Text based random values such as words, sentences and paragraphs.

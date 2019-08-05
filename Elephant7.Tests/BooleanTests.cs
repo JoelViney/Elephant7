@@ -1,6 +1,6 @@
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System;
 
 namespace Elephant7
 {
@@ -13,9 +13,10 @@ namespace Elephant7
             // Arrange
             var mock = new Mock<Random>();
             mock.Setup(x => x.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(1);
+            var rnd = mock.Object;
 
             // Act
-            var result = RandomExtensions.NextBoolean(mock.Object);
+            var result = rnd.NextBoolean();
 
             // Assert
             Assert.IsTrue(result);
@@ -27,9 +28,10 @@ namespace Elephant7
             // Arrange
             var mock = new Mock<Random>();
             mock.Setup(x => x.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(0);
+            var rnd = mock.Object;
 
             // Act
-            var result = RandomExtensions.NextBoolean(mock.Object);
+            var result = rnd.NextBoolean();
 
             // Assert
             Assert.IsFalse(result);
