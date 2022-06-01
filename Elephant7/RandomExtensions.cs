@@ -65,20 +65,6 @@ namespace Elephant7
 
         #region Decimal
 
-        /// <summary>
-        /// Returns an Int32 with a random value across the entire range of
-        /// possible values.
-        /// </summary>
-        private static int NextInt32(Random random)
-        {
-            unchecked
-            {
-                int firstBits = random.Next(0, 1 << 4) << 28;
-                int lastBits = random.Next(0, 1 << 28);
-                return firstBits | lastBits;
-            }
-        }
-
         /// <summary>Returns a random decimal value.</summary>
         public static decimal NextDecimal(this Random random)
         {
@@ -134,7 +120,7 @@ namespace Elephant7
         public static T NextListItem<T>(this Random random, IList<T> list)
         {
             if (list.Count == 0)
-                return default(T);
+                return default;
 
             int index = random.Next(0, list.Count);
 
@@ -146,6 +132,20 @@ namespace Elephant7
 
 
         #region Number
+
+        /// <summary>
+        /// Returns an Int32 with a random value across the entire range of
+        /// possible values.
+        /// </summary>
+        private static int NextInt32(Random random)
+        {
+            unchecked
+            {
+                int firstBits = random.Next(0, 1 << 4) << 28;
+                int lastBits = random.Next(0, 1 << 28);
+                return firstBits | lastBits;
+            }
+        }
 
         /// <summary>
         /// Returns a random whole number between 0 and the max parameter.

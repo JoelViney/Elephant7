@@ -10,8 +10,8 @@ namespace Elephant7
     /// </summary>
     internal class DataFile
     {
-        private string _fileName;
-        private int _randomNumberWeight;
+        private readonly string _fileName;
+        private readonly int _randomNumberWeight;
         private string[] _lines;
 
         #region Constructors...
@@ -43,10 +43,9 @@ namespace Elephant7
                 {
                     string result = reader.ReadToEnd();
 
-                    this._lines = result.Split("\r\n");
+                    this._lines = result.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
                 }
             }
-
         }
 
         internal string GetRandomLine(Random random)

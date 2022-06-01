@@ -5,11 +5,11 @@ namespace Elephant7
 {
     public static class RandomPersonExtensions
     {
-        private static Lazy<DataFile> _titleMaleFile;
-        private static Lazy<DataFile> _titleFemaleFile;
-        private static Lazy<DataFile> _firstNameMaleFile;
-        private static Lazy<DataFile> _firstNameFemaleFile;
-        private static Lazy<DataFile> _lastNameFile;
+        private static readonly Lazy<DataFile> _titleMaleFile;
+        private static readonly Lazy<DataFile> _titleFemaleFile;
+        private static readonly Lazy<DataFile> _firstNameMaleFile;
+        private static readonly Lazy<DataFile> _firstNameFemaleFile;
+        private static readonly Lazy<DataFile> _lastNameFile;
 
         #region Constructors...
 

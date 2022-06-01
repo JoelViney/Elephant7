@@ -7,7 +7,6 @@ It can be found on Nuget by searching for 'Elephant7'
 
 ## Technologies Used
 	* Nuget
-	* .NET Core 2.0
 	* MSTest
 	* Moq
 

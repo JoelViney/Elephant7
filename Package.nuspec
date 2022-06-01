@@ -1,46 +1,43 @@
 <?xml version="1.0"?>
 <package >
-  <metadata>
+	<metadata>
 
-    <id>Elephant7</id>
-    <title>Elephant7</title>
-    
-    <version>1.0.1</version>
-    <releaseNotes>Initial Version.</releaseNotes>
+		<id>Elephant7</id>
+		<title>Elephant7</title>
 
-    <authors>Joel Viney</authors>
-    <owners>JoelViney</owners>
+		<version>2.0.0</version>
+		<releaseNotes>Dotnet standard release.</releaseNotes>
 
-    <!-- <iconUrl></iconUrl> -->
-    <projectUrl>https://github.com/JoelViney/Elephant7</projectUrl>
+		<authors>Joel Viney</authors>
+		<owners>JoelViney</owners>
 
-    <licenseUrl>https://github.com/JoelViney/Elephant7/blob/master/LICENSE</licenseUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<!-- <iconUrl></iconUrl> -->
+		<projectUrl>https://github.com/JoelViney/Elephant7</projectUrl>
+		<license type="expression">MIT</license>
+		<copyright>Copyright @2018 Joel Viney</copyright>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 
-    <summary>Provides extension methods for System.Random for generating more complex data.</summary>
-    <description>
-      Provides extension methods for System.Random for generating more complex data.
-      This includes basic methods like NextBoolean, NextCurrency, NextDateTime, NextDecimal etc.
-      As well as more advanced options like NextEnum, NextListItem, NextParameter.
-      Finally it also contains random  objects like NextPerson and NextAddress (Australian Format).
-    </description>
+		<summary>Provides extension methods for System.Random for generating more complex data.</summary>
+		<description>
+			Provides extension methods for System.Random for generating more complex data.
+			This includes basic methods like NextBoolean, NextCurrency, NextDateTime, NextDecimal etc.
+			As well as more advanced options like NextEnum, NextListItem, NextParameter.
+			Finally it also contains random  objects like NextPerson and NextAddress (Australian Format).
+		</description>
 
-    <copyright>Copyright @2018 Joel Viney</copyright>
+		<!-- Tags appear in the gallery and can be used for tag searches -->
+		<tags>Random Test</tags>
 
-    <!-- Tags appear in the gallery and can be used for tag searches -->
-    <tags>Random Test</tags>
-    <!--
-    <dependencies>
-      <dependency id="SampleDependency" version="1.0" />
-    </dependencies> 
-    -->
+		<dependencies>
+			<group targetFramework="netstandard2.0" />
+		</dependencies>
 
-    <contentFiles>
-      <files include="Elephant7\Data\*.*" buildAction="EmbeddedResource" />
-    </contentFiles>
-  </metadata>
-  <files>
-    <file src="Elephant7\bin\Debug\netcoreapp2.0\Elephant7.dll" target="lib\netcoreapp2.0\" />
-    <file src="Elephant7\bin\Debug\netcoreapp2.0\Elephant7.xml" target="lib\netcoreapp2.0\" />
-  </files>
+		<contentFiles>
+			<files include="Elephant7\Data\*.*" buildAction="EmbeddedResource" />
+		</contentFiles>
+	</metadata>
+	<files>
+		<file src="Elephant7\bin\Debug\netstandard2.0\Elephant7.dll" target="lib\netstandard2.0" />
+		<file src="Elephant7\bin\Debug\netstandard2.0\Elephant7.xml" target="lib\netstandard2.0" />
+	</files>
 </package>

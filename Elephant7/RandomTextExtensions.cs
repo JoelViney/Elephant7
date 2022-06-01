@@ -9,8 +9,8 @@ namespace Elephant7
     /// </summary>
     public static class RandomTextExtensions
     {
-        private static Lazy<DataFile> _wordFile;
-        private static Lazy<DataFile> _wordNoiseFile;
+        private static readonly Lazy<DataFile> _wordFile;
+        private static readonly Lazy<DataFile> _wordNoiseFile;
 
         static RandomTextExtensions()
         {
@@ -47,11 +47,11 @@ namespace Elephant7
                 // Return a number or a string?
                 int number = random.Number(1, 10);
                 if (number < 5)
-                    code = code + Convert.ToChar(random.Number(Convert.ToInt32('a'), Convert.ToInt32('z')));
+                    code += Convert.ToChar(random.Number(Convert.ToInt32('a'), Convert.ToInt32('z')));
                 else if (number < 9)
-                    code = code + Convert.ToChar(random.Number(Convert.ToInt32('A'), Convert.ToInt32('Z')));
+                    code += Convert.ToChar(random.Number(Convert.ToInt32('A'), Convert.ToInt32('Z')));
                 else
-                    code = code + random.Number(0, 9).ToString();
+                    code += random.Number(0, 9).ToString();
             }
 
             return code;
@@ -70,16 +70,16 @@ namespace Elephant7
                 switch (ch)
                 {
                     case '#':
-                        code = code + random.Number(0, 9).ToString();
+                        code += random.Number(0, 9).ToString();
                         break;
                     case 'a':
-                        code = code + Convert.ToChar(random.Number(Convert.ToInt32('a'), Convert.ToInt32('z')));
+                        code += Convert.ToChar(random.Number(Convert.ToInt32('a'), Convert.ToInt32('z')));
                         break;
                     case 'A':
-                        code = code + Convert.ToChar(random.Number(Convert.ToInt32('A'), Convert.ToInt32('Z')));
+                        code += Convert.ToChar(random.Number(Convert.ToInt32('A'), Convert.ToInt32('Z')));
                         break;
                     default:
-                        code = code + ch.ToString();
+                        code += ch.ToString();
                         break;
                 }
             }
@@ -108,7 +108,7 @@ namespace Elephant7
 
             for (int i = 0; i <= wordCount; i++)
             {
-                string word = "";
+                string word;
                 if ((i % 3) == 0)
                 {
                     word = random.NextNoiseWord();
@@ -151,17 +151,16 @@ namespace Elephant7
         public static string NextParagraph(this Random random, int maxLength)
         {
             string paragraph = "";
-            string sentence = "";
             int count = random.Number(1, 6) + random.Number(1, 6) + random.Number(1, 6); // 3-18 Sentences
             for (int i = 0; i < count; i++)
             {
-                sentence = random.NextSentence();
+                var sentence = random.NextSentence();
                 if (maxLength == 0 || (paragraph.Length + sentence.Length) <= maxLength)
                 {
-                    paragraph = paragraph + sentence;
+                    paragraph += sentence;
                     if (paragraph.Length < maxLength)
                     {
-                        paragraph = paragraph + " ";
+                        paragraph += " ";
                     }
                 }
             }
@@ -188,7 +187,7 @@ namespace Elephant7
         {
             int count = random.NextNumberCurved(3, 14, 2); // 3-14 Words
             string sentence = "";
-            string word = "";
+            string word;
 
             if (maxLength == 1)
                 return "."; // Stop the smartasses trying to crash me
@@ -203,11 +202,11 @@ namespace Elephant7
                 word = TextHelper.TitleCase(random.NextWord());
 
             if (maxLength == 0)
-                sentence = sentence + word;
+                sentence += word;
             else
             {
                 if ((sentence.Length + word.Length) < maxLength)
-                    sentence = sentence + word;
+                    sentence += word;
                 else
                     sentence = word.Substring(0, maxLength);
             }
@@ -218,22 +217,22 @@ namespace Elephant7
                 // Mabe add a comma
                 if (i > 2 && (random.NextNumber(6) == 1))
                 {
-                    word = ",";
+                    word += ",";
                 }
-                word = " " + random.NextNoiseWord() + " " + random.NextWord();
+                word += " " + random.NextNoiseWord() + " " + random.NextWord();
 
                 if (maxLength == 0 || (sentence.Length + word.Length) < maxLength)
                 {
-                    sentence = sentence + word;
+                    sentence += word;
                 }
             }
 
             if (random.NextNumber(20) == 0)
-                sentence = sentence + "!";  // Very important sentence
+                sentence += "!";  // Very important sentence
             else if (random.NextNumber(20) == 0)
-                sentence = sentence + "?";  // Confused sentence
+                sentence += "?";  // Confused sentence
             else
-                sentence = sentence + ".";  // Normal sentence
+                sentence += ".";  // Normal sentence
             return sentence;
         }
 
@@ -284,8 +283,7 @@ namespace Elephant7
 
             for (int i = 0; i <= wordCount; i++)
             {
-                string word = "";
-
+                string word;
                 if (i == wordCount && random.Number(1, 4) == 1)
                 {
                     word = "Co";
