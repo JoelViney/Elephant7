@@ -30,6 +30,9 @@ namespace Elephant7.Models
         public DateTime DateOfBirth { get; set; }
 
 
+        /// <summary>
+        /// Returns the persons name in the following format [Title] [FirstName] [?MiddleName] [LastName]
+        /// </summary>
         public string FullName
         {
             get
